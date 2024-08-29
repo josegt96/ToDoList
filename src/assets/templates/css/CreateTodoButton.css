@@ -1,0 +1,14 @@
+.CreateTodoButton {
+  padding: 20px;
+  margin: 10px;
+  border-radius: 25px;
+  background: #f2f4f5;
+  color: #000000;
+  border-width: 2px;
+  border-color: #149999;
+}
+
+.CreateTodoButton button :hover {
+  transition: ease-out;
+  color: #149999;
+}

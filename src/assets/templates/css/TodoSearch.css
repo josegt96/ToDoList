@@ -1,0 +1,8 @@
+.TodoSearch input {
+ border-radius: 25px;
+ width: 29rem;
+ background: #f2f4f5;
+ border-color: #149999;
+ border-width: 3px;
+ padding:1%;
+}
