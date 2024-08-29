@@ -5,16 +5,13 @@ import { TodoItem } from "./TodoItem";
 import { CreateTodoButton } from "./CreateTodoButton";
 import React from "react";
 
-const defaultTodos = [
-  { text: "Study", completed: true },
-  { text: "Work", completed: false },
-  { text: "Excercise", completed: false },
-  { text: "Meditate", completed: false },
-];
+
 
 function App() {
 
-  const [todos, setTodos] = React.useState(defaultTodos);
+  const [todos, setTodos] = React.useState([]);
+
+  const [newTodoText, setNewTodoText] = React.useState("");
 
   const [searchValue, setSearchValue] = React.useState("");
 
@@ -30,6 +27,20 @@ function App() {
     setTodos(newTodos);
   };
   
+  const deleteTodos = (index) => {
+    const newTodos = [...todos];
+    newTodos.splice(index,1);
+    setTodos(newTodos);
+  };
+
+  const addTodos = () => {
+    const newTodos = [...todos];
+    const newTodo = {text: newTodoText, completed: false};
+    newTodos.push(newTodo);
+    setTodos(newTodos);
+    setNewTodoText("");
+
+  };
 
   const searchedTodos = todos.filter((todo) => {
     const todoText = todo.text.toLowerCase();
@@ -41,17 +52,22 @@ function App() {
     <TodoSearch searchValue={searchValue} setSearchValue={setSearchValue} />
 
     <TodoList>
-      {searchedTodos.map((todo) => (
+      {searchedTodos.map((todo, index) => (
         <TodoItem
-          key={todo.text}
+          key={index}
           text={todo.text}
           completed={todo.completed}
           onComplete={() => checkTodos(todo.text)}
+          onDelete={() => deleteTodos()}
         />
       ))}
     </TodoList>
-
-    <CreateTodoButton />
+    <input placeholder="Write a new task..." value={newTodoText} onChange={(event) => {
+      setNewTodoText(event.target.value);
+    }}></input>
+    <CreateTodoButton 
+      onAdd={() => addTodos()}
+    />
   </>;
 }
 
